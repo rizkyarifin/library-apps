@@ -17,7 +17,7 @@ public class Admin extends User {
     }
     
     // Method signatures untuk Anggota 2 (Array Operations)
-    public void addBook(Book[] books, Book newBook, int[] bookCount) {
+    public void addBook(Object[] books, String newBook, int[] bookCount) {
         if (bookCount[0] < books.length) {
             books[bookCount[0]] = newBook;
             bookCount[0]++;
@@ -28,7 +28,7 @@ public class Admin extends User {
 
     }
     
-    public void removeBook(Book[] books, String title, int[] bookCount) {
+    public void removeBook(Object[] books, String title, int[] bookCount) {
         for (int i = 0; i < books.length; i++) {
             if (books[i] != null && books[i].getTitle().equalsIgnoreCase(title)) {
                 //geser array
@@ -43,7 +43,7 @@ public class Admin extends User {
         // Implementation akan dilengkapi oleh Anggota 2
     }
 
-        public Book[] searchBook(Book[] books, String title, int bookCount) {
+        public Book[] searchBook(Object[] books, String title, int bookCount) {
         Book[] result = new Book[bookCount];
         int resultCount = 0;
 

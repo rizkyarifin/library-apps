@@ -1,0 +1,82 @@
+# Class Diagram - Sistem Manajemen Perpustakaan
+# (Versi Text untuk kemudahan visualisasi)
+
+                            ┌─────────────────────────┐
+                            │    <<abstract>>         │
+                            │        User             │
+                            ├─────────────────────────┤
+                            │ # userId: String        │
+                            │ # name: String          │
+                            │ # email: String         │
+                            ├─────────────────────────┤
+                            │ + User()                │
+                            │ + getUserId(): String   │
+                            │ + getName(): String     │
+                            │ + getEmail(): String    │
+                            │ + displayInfo(): void   │
+                            │ + interact(): void*     │
+                            │ + performAction(): void*│
+                            │ + canAddBook(): boolean*│
+                            │ + canRemoveBook(): bool*│
+                            │ + canBorrowBook(): bool*│
+                            └─────────────────────────┘
+                                        ▲
+                                        │
+                      ┌─────────────────┴─────────────────┐
+                      │                                   │
+                      │extends                            │extends
+                      │                                   │
+        ┌─────────────────────────┐         ┌─────────────────────────┐
+        │        Admin            │         │        Member           │
+        ├─────────────────────────┤         ├─────────────────────────┤
+        │ - adminLevel: String    │         │ - memberId: String      │
+        ├─────────────────────────┤         │ - borrowedBooks: int    │
+        │ + Admin()               │         │ - MAX_BORROW: int = 3   │
+        │ + getAdminLevel()       │         ├─────────────────────────┤
+        │ + addBook()             │         │ + Member()              │
+        │ + removeBook()          │         │ + getMemberId()         │
+        │ + searchBook()          │         │ + getBorrowedBooks()    │
+        │ + displayAllBooks()     │         │ + getMaxBorrow()        │
+        │ + manageLibrary()       │         │ + borrowBook()          │
+        │ + interact()            │         │ + returnBook()          │
+        │ + performAction()       │         │ + viewAvailableBooks()  │
+        │ + canAddBook(): true    │         │ + searchBook()          │
+        │ + canRemoveBook(): true │         │ + interact()            │
+        │ + canBorrowBook(): false│         │ + performAction()       │
+        │ + displayInfo()         │         │ + canAddBook(): false   │
+        └─────────────────────────┘         │ + canRemoveBook(): false│
+                                            │ + canBorrowBook(): cond │
+                                            │ + displayInfo()         │
+                                            └─────────────────────────┘
+
+## Notasi:
+- <<abstract>> : Abstract class
+- + : Public
+- - : Private  
+- # : Protected
+- * : Abstract method
+- extends : Inheritance relationship
+- cond : Conditional (borrowedBooks < MAX_BORROW)
+
+## Key OOP Concepts Demonstrated:
+
+1. INHERITANCE:
+   - Admin dan Member mewarisi semua attributes dan methods dari User
+   - Menggunakan keyword 'extends'
+   - Constructor child memanggil super()
+
+2. POLYMORPHISM:
+   - Method interact() memiliki implementasi berbeda di Admin vs Member
+   - Method canAddBook(), canRemoveBook(), canBorrowBook() return nilai berbeda
+   - User[] array dapat menampung Admin dan Member objects
+
+3. ABSTRACTION:
+   - User adalah abstract class
+   - Abstract methods memaksa child classes untuk provide implementation
+   - Details implementation tersembunyi dari user
+
+4. ENCAPSULATION:
+   - Private attributes (adminLevel, memberId, borrowedBooks)
+   - Protected attributes di parent (userId, name, email)
+   - Public getters untuk controlled access
+   - No setters untuk maintain data integrity

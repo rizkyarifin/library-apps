@@ -1,0 +1,111 @@
+@startuml LibraryManagementSystem
+
+!define ABSTRACT_CLASS class
+!define PUBLIC +
+!define PRIVATE -
+!define PROTECTED #
+!define ABSTRACT {abstract}
+
+title Class Diagram - Sistem Manajemen Perpustakaan
+
+skinparam class {
+    BackgroundColor<<abstract>> LightBlue
+    BorderColor Black
+    ArrowColor Black
+    FontSize 12
+}
+
+abstract class User <<abstract>> {
+    # userId : String
+    # name : String
+    # email : String
+    
+    + User(userId: String, name: String, email: String)
+    + getUserId() : String
+    + getName() : String
+    + getEmail() : String
+    + displayInfo() : void
+    {abstract} + interact() : void
+    {abstract} + performAction(books: Object[], bookCount: int[]) : void
+    {abstract} + canAddBook() : boolean
+    {abstract} + canRemoveBook() : boolean
+    {abstract} + canBorrowBook() : boolean
+}
+
+class Admin {
+    - adminLevel : String
+    
+    + Admin(userId: String, name: String, email: String, adminLevel: String)
+    + getAdminLevel() : String
+    + addBook(books: Object[], newBook: Object, bookCount: int[]) : void
+    + removeBook(books: Object[], title: String, bookCount: int[]) : void
+    + searchBook(books: Object[], title: String, bookCount: int) : Object[]
+    + displayAllBooks(books: Object[], bookCount: int) : void
+    + manageLibrary() : void
+    + interact() : void
+    + performAction(books: Object[], bookCount: int[]) : void
+    + canAddBook() : boolean
+    + canRemoveBook() : boolean
+    + canBorrowBook() : boolean
+    + displayInfo() : void
+}
+
+class Member {
+    - memberId : String
+    - borrowedBooks : int
+    - MAX_BORROW : int = 3
+    
+    + Member(userId: String, name: String, email: String, memberId: String)
+    + getMemberId() : String
+    + getBorrowedBooks() : int
+    + getMaxBorrow() : int
+    + borrowBook(books: Object[], bookTitle: String, bookCount: int) : boolean
+    + returnBook(books: Object[], bookTitle: String, bookCount: int) : boolean
+    + viewAvailableBooks(books: Object[], bookCount: int) : void
+    + searchBook(books: Object[], title: String, bookCount: int) : Object[]
+    + interact() : void
+    + performAction(books: Object[], bookCount: int[]) : void
+    + canAddBook() : boolean
+    + canRemoveBook() : boolean
+    + canBorrowBook() : boolean
+    + displayInfo() : void
+}
+
+' Inheritance relationships
+User <|-- Admin : extends
+User <|-- Member : extends
+
+' Notes
+note top of User
+    Abstract parent class that defines
+    common attributes and behaviors
+    for all user types in the system
+end note
+
+note right of Admin
+    Admin can:
+    - Add/Remove books
+    - Search books
+    - Display all books
+    - Manage library
+end note
+
+note right of Member
+    Member can:
+    - Borrow books (max 3)
+    - Return books
+    - View available books
+    - Search books
+end note
+
+' Legend
+legend right
+    **Legend:**
+    + Public
+    - Private
+    # Protected
+    {abstract} Abstract method
+    <<abstract>> Abstract class
+endlegend
+
+@enduml

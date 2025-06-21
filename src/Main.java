@@ -37,7 +37,7 @@ public class Main {
         
         // Demonstrasi method specific untuk Admin
         System.out.println("\n--- Admin Operations ---");
-        Object[] books = new Object[10]; // Placeholder untuk array buku
+        Object[] books = new Book[10]; // Placeholder untuk array buku
         int[] bookCount = {0}; // Counter untuk jumlah buku
         
         admin1.addBook(books, "New Book", bookCount);

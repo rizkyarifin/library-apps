@@ -2,21 +2,23 @@
  * Class Admin yang mewarisi dari User
  * Menunjukkan implementasi Inheritance
  */
+
 import java.util.Scanner;
+
 public class Admin extends User {
     private String adminLevel;
-    
+
     // Constructor - memanggil constructor parent class
     public Admin(String userId, String name, String email, String adminLevel) {
         super(userId, name, email); // Inheritance - memanggil constructor parent
         this.adminLevel = adminLevel;
     }
-    
+
     // Getter untuk adminLevel
     public String getAdminLevel() {
         return adminLevel;
     }
-    
+
     // Method signatures untuk Anggota 2 (Array Operations)
     public void addBook(Book[] books, Book newBook, int[] bookCount) {
         if (bookCount[0] < books.length) {
@@ -27,7 +29,7 @@ public class Admin extends User {
             System.out.println("Perpustakaan penuh! Tidak dapat menambahkan buku baru.");
         }
     }
-    
+
     public void removeBook(Book[] books, String title, int[] bookCount) {
         boolean found = false;
         for (int i = 0; i < bookCount[0]; i++) {
@@ -73,17 +75,26 @@ public class Admin extends User {
         System.arraycopy(result, 0, trimmedResult, 0, resultCount);
         return trimmedResult;
     }
-    
+
     // Method signatures untuk Anggota 3 (Book Management)
     public void displayAllBooks(Book[] books, int bookCount) {
         System.out.println("Admin " + name + " melihat semua buku");
         // Implementation akan dilengkapi oleh Anggota 3
+
+        if (bookCount == 0) {
+            System.out.println("Tidak ada buku yang ditemukan.");
+        } else {
+            System.out.println("\nMenampilkan semua buku:");
+            for (int i = 0; i < bookCount; i++) {
+                System.out.println((i + 1) + ". " + books[i].getTitle() + " by " + books[i].getAuthor());
+            }
+        }
     }
-    
+
     public void manageLibrary() {
         System.out.println("Admin " + name + " sedang mengelola perpustakaan");
     }
-    
+
     // Override method interact() - Polymorphism (untuk Anggota 4)
     @Override
     public void interact() {
@@ -95,11 +106,11 @@ public class Admin extends User {
         System.out.println("4. Melihat semua buku");
         System.out.println("5. Mengelola perpustakaan");
     }
-    
+
     // Override performAction untuk Anggota 4 (Polymorphism)
     @Override
     public void performAction(Book[] books, int[] bookCount, Scanner scanner) {
-        System.out.println("=== Menu Aksi Admin: "  + name + " ===");
+        System.out.println("=== Menu Aksi Admin: " + name + " ===");
         System.out.println("1. Tambah Buku");
         System.out.println("2. Hapus Buku");
         System.out.print("Pilih aksi (1-2): ");
@@ -124,23 +135,23 @@ public class Admin extends User {
         }
         // Specific admin actions - akan diimplementasi oleh Anggota 4
     }
-    
+
     // Permission methods untuk Anggota 4 (Polymorphism)
     @Override
     public boolean canAddBook() {
         return true; // Admin dapat menambah buku
     }
-    
+
     @Override
     public boolean canRemoveBook() {
         return true; // Admin dapat menghapus buku
     }
-    
+
     @Override
     public boolean canBorrowBook() {
         return false; // Admin tidak perlu meminjam buku
     }
-    
+
     // Override displayInfo untuk menampilkan info spesifik Admin
     @Override
     public void displayInfo() {

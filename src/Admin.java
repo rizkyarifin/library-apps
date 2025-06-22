@@ -79,14 +79,13 @@ public class Admin extends User {
     // Method signatures untuk Anggota 3 (Book Management)
     public void displayAllBooks(Book[] books, int bookCount) {
         System.out.println("Admin " + name + " melihat semua buku");
-        // Implementation akan dilengkapi oleh Anggota 3
 
         if (bookCount == 0) {
             System.out.println("Tidak ada buku yang ditemukan.");
         } else {
             System.out.println("\nMenampilkan semua buku:");
             for (int i = 0; i < bookCount; i++) {
-                System.out.println((i + 1) + ". " + books[i].getTitle() + " by " + books[i].getAuthor());
+                System.out.println((i + 1) + ". " + books[i].getTitle() + " by " + books[i].getAuthor() + " - " + books[i].getStatus());
             }
         }
     }

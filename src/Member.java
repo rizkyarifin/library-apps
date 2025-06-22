@@ -3,7 +3,6 @@
  * Menunjukkan implementasi Inheritance
  */
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Member extends User {
@@ -87,13 +86,12 @@ public class Member extends User {
     // Method untuk melihat buku tersedia (untuk Anggota 3)
     public void viewAvailableBooks(Book[] books, int bookCount) {
         System.out.println("Member " + name + " melihat daftar buku tersedia");
-        // Implementation akan dilengkapi oleh Anggota 3
         int count = 0;
         for (int i = 0; i < bookCount; i++) {
             Book book = books[i];
 
             if (book == null) {
-                return;
+                continue;
             }
 
             if (book.getStatus().equalsIgnoreCase("Tersedia")) {

@@ -19,17 +19,6 @@ public class Admin extends User {
         return adminLevel;
     }
 
-    
-
-    // Override displayInfo untuk menampilkan info spesifik Admin
-    @Override
-    public void displayInfo() {
-        super.displayInfo(); // Memanggil method parent
-        System.out.println("Role: Admin");
-        System.out.println("Admin Level: " + adminLevel);
-    }
-}
-
 
 @Override
 public void interact() {
@@ -58,5 +47,14 @@ public void performAction(BookManager bookManager, Scanner scanner) {
         bookManager.displayAvailableBooks();
     } else {
         System.out.println("Pilihan tidak valid.");
+    }
+}
+
+// Override displayInfo untuk menampilkan info spesifik Admin
+    @Override
+    public void displayInfo() {
+        super.displayInfo(); // Memanggil method parent
+        System.out.println("Role: Admin");
+        System.out.println("Admin Level: " + adminLevel);
     }
 }

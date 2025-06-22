@@ -55,7 +55,7 @@ public class Member extends User {
     }
 
     // Override performAction untuk Anggota 4 (Polymorphism)
-    @override
+    @Override
     public void performAction(BookManager bookManager, Scanner scanner) {
         interact();
         System.out.println("PILIH AKSI:\n1. Pinjam Buku\n2. Kembalikan Buku\n3. Lihat Buku Tersedia");
@@ -66,7 +66,7 @@ public class Member extends User {
         if (choice == 1) {
             System.out.print("Masukkan judul buku yang akan dipinjam: ");
             String title = scanner.nextLine();
-            bookManager.borrowBook(title this);
+            bookManager.borrowBook(title, this);
         } else if (choice == 2) {
             System.out.print("Masukkan judul buku yang akan dikembalikan: ");
             String title = scanner.nextLine();

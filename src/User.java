@@ -2,6 +2,7 @@
  * Class User sebagai parent class untuk semua pengguna sistem perpustakaan
  * Menerapkan konsep Inheritance dan Polymorphism
  */
+import java.util.Scanner;
 public abstract class User {
     // Atribut protected agar bisa diakses oleh child class
     protected String userId;
@@ -32,7 +33,7 @@ public abstract class User {
     public abstract void interact();
     
     // Abstract method untuk operasi berbeda Admin vs Member (Soal 4)
-    public abstract void performAction(Object[] books, int[] bookCount, Scanner scanner);
+    public abstract void performAction(Book[] books, int[] bookCount, Scanner scanner);
     
     // Abstract methods untuk permission checking (Soal 4)
     public abstract boolean canAddBook();

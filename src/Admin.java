@@ -18,24 +18,64 @@ public class Admin extends User {
     }
     
     // Method signatures untuk Anggota 2 (Array Operations)
-    public void addBook(Object[] books, Object newBook, int[] bookCount) {
-        System.out.println("Admin " + name + " menambahkan buku");
-        // Implementation akan dilengkapi oleh Anggota 2
+    public void addBook(Book[] books, Book newBook, int[] bookCount) {
+        if (bookCount[0] < books.length) {
+            books[bookCount[0]] = newBook;
+            bookCount[0]++;
+            System.out.println("Admin " + name + " berhasil menambahkan buku: " + newBook.getTitle());
+        } else {
+            System.out.println("Perpustakaan penuh! Tidak dapat menambahkan buku baru.");
+        }
     }
     
-    public void removeBook(Object[] books, String title, int[] bookCount) {
-        System.out.println("Admin " + name + " menghapus buku: " + title);
-        // Implementation akan dilengkapi oleh Anggota 2
+    public void removeBook(Book[] books, String title, int[] bookCount) {
+        boolean found = false;
+        for (int i = 0; i < bookCount[0]; i++) {
+            if (books[i] != null && books[i].getTitle().equalsIgnoreCase(title)) {
+                // Geser array ke kiri
+                for (int j = i; j < bookCount[0] - 1; j++) {
+                    books[j] = books[j + 1];
+                }
+                books[bookCount[0] - 1] = null;
+                bookCount[0]--;
+                found = true;
+                System.out.println("Admin " + name + " berhasil menghapus buku: " + title);
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Buku dengan judul '" + title + "' tidak ditemukan.");
+        }
     }
-    
-    public Object[] searchBook(Object[] books, String title, int bookCount) {
-        System.out.println("Admin " + name + " mencari buku: " + title);
-        // Implementation akan dilengkapi oleh Anggota 2
-        return null;
+
+    public Book[] searchBook(Book[] books, String title, int bookCount) {
+        Book[] result = new Book[bookCount];
+        int resultCount = 0;
+
+        for (int i = 0; i < bookCount; i++) {
+            if (books[i] != null && books[i].getTitle().toLowerCase().contains(title.toLowerCase())) {
+                result[resultCount++] = books[i];
+            }
+        }
+
+        System.out.println("Admin " + name + " mencari buku dengan kata kunci: \"" + title + "\"");
+        if (resultCount == 0) {
+            System.out.println("Tidak ada buku yang ditemukan.");
+        } else {
+            System.out.println("Ditemukan " + resultCount + " buku:");
+            for (int i = 0; i < resultCount; i++) {
+                System.out.println((i + 1) + ". " + result[i].getTitle() + " by " + result[i].getAuthor() + " - " + result[i].getStatus());
+            }
+        }
+
+        // Return hasil pencarian yang sesuai
+        Book[] trimmedResult = new Book[resultCount];
+        System.arraycopy(result, 0, trimmedResult, 0, resultCount);
+        return trimmedResult;
     }
     
     // Method signatures untuk Anggota 3 (Book Management)
-    public void displayAllBooks(Object[] books, int bookCount) {
+    public void displayAllBooks(Book[] books, int bookCount) {
         System.out.println("Admin " + name + " melihat semua buku");
         // Implementation akan dilengkapi oleh Anggota 3
     }
@@ -58,25 +98,27 @@ public class Admin extends User {
     
     // Override performAction untuk Anggota 4 (Polymorphism)
     @Override
-    public void performAction(Object[] books, int[] bookCount, Scanner scanner) {
-        System.out.println("=== Menu Aksi Member: "  + name + " ===");
-        System.out.println("1. Pinjam Buku");
-        System.out.println("2. Kembalikan Buku");
+    public void performAction(Book[] books, int[] bookCount, Scanner scanner) {
+        System.out.println("=== Menu Aksi Admin: "  + name + " ===");
+        System.out.println("1. Tambah Buku");
+        System.out.println("2. Hapus Buku");
         System.out.print("Pilih aksi (1-2): ");
 
         int choice = scanner.nextInt();
-        scanner.nextLine()
+        scanner.nextLine(); // Fix missing semicolon
 
         if (choice == 1) {
             System.out.print("Masukkan judul buku baru: ");
             String title = scanner.nextLine();
-            // MEmenaggil metode untuk menambah buku
-            addBook(books, title, bookCount);
+            System.out.print("Masukkan nama pengarang: ");
+            String author = scanner.nextLine();
+            // Memanggil metode untuk menambah buku
+            addBook(books, new Book(title, author, "Tersedia"), bookCount);
         } else if (choice == 2) {
             System.out.print("Masukkan judul buku yang akan dihapus: ");
             String title = scanner.nextLine();
             // Memanggil metode untuk menghapus buku
-            removeBook(books, tittle, bookCount);
+            removeBook(books, title, bookCount); // Fix typo
         } else {
             System.out.println("Pilihan tidak valid.");
         }

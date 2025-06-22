@@ -2,6 +2,7 @@
  * Class Member yang mewarisi dari User
  * Menunjukkan implementasi Inheritance
  */
+import java.util.Scanner;
 public class Member extends User {
     private String memberId;
     private int borrowedBooks;
@@ -81,8 +82,28 @@ public class Member extends User {
     
     // Override performAction untuk Anggota 4 (Polymorphism)
     @Override
-    public void performAction(Object[] books, int[] bookCount) {
-        System.out.println("Member performing member actions...");
+    public void performAction(Object[] books, int[] bookCount, Scanner scanner) {
+        System.out.println("=== Menu aksi Member: :" + name + " ===");
+        System.out.println("1. Pinjam Buku");
+        System.out.println("2. Kembalikan Buku");
+        System.out.print("Pilih aksi (1-2): ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 1) {
+            System.out.print("Masukkan judul buku yang akan dipinjam: ");
+            String title = scanner.nextLine();
+            // Memanggil metode untuk meminjam buku
+            borrowBook(books, tittle, bookCount[0]);
+        } else if (choice == 2) {
+            System.out.print("Masukkan judul buku yang akan dikembalikan: ");
+            String title + scanner.nextLine();
+            // Memanggil metode untuk mengembalikan buku
+            returnBook(books, title, bookCount[0]);
+        } else {
+            System.out.println("Pilihan tidak valid.");
+        }
         // Specific member actions - akan diimplementasi oleh Anggota 4
     }
     

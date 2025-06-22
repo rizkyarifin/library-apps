@@ -2,6 +2,7 @@
  * Main class untuk mendemonstrasikan sistem perpustakaan
  * dengan konsep Inheritance dan Polymorphism
  */
+import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         System.out.println("=== SISTEM PERPUSTAKAAN ===\n");
@@ -54,12 +55,14 @@ public class Main {
         
         member1.returnBook(books, "Java Programming", 5);
         member1.viewAvailableBooks(books, 5);
+
+        Scanner scanner = new Scanner(System.in);
         
         // Demonstrasi polymorphic behavior dengan performAction
         System.out.println("\n--- Polymorphic Actions ---");
         for (User user : users) {
-            System.out.println("\n" + user.getName() + ":");
-            user.performAction(books, bookCount);
+            System.out.println("\n--- Interaksi dengan "  + user.getName() + " ---");
+            user.performAction(books, bookCount, scanner);
         }
     }
 }

@@ -35,10 +35,6 @@ public abstract class User {
     // Abstract method untuk operasi berbeda Admin vs Member (Soal 4)
     public abstract void performAction(BookManager bookManager, Scanner scanner);
     
-    // Abstract methods untuk permission checking (Soal 4)
-    public abstract boolean canAddBook();
-    public abstract boolean canRemoveBook();
-    public abstract boolean canBorrowBook();
     
     // Method umum untuk menampilkan informasi user
     public void displayInfo() {

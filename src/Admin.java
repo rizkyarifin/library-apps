@@ -2,6 +2,7 @@
  * Class Admin yang mewarisi dari User
  * Menunjukkan implementasi Inheritance
  */
+import java.util.Scanner;
 public class Admin extends User {
     private String adminLevel;
     
@@ -57,8 +58,28 @@ public class Admin extends User {
     
     // Override performAction untuk Anggota 4 (Polymorphism)
     @Override
-    public void performAction(Object[] books, int[] bookCount) {
-        System.out.println("Admin performing administrative actions...");
+    public void performAction(Object[] books, int[] bookCount, Scanner scanner) {
+        System.out.println("=== Menu Aksi Member: "  + name + " ===");
+        System.out.println("1. Pinjam Buku");
+        System.out.println("2. Kembalikan Buku");
+        System.out.print("Pilih aksi (1-2): ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine()
+
+        if (choice == 1) {
+            System.out.print("Masukkan judul buku baru: ");
+            String title = scanner.nextLine();
+            // MEmenaggil metode untuk menambah buku
+            addBook(books, title, bookCount);
+        } else if (choice == 2) {
+            System.out.print("Masukkan judul buku yang akan dihapus: ");
+            String title = scanner.nextLine();
+            // Memanggil metode untuk menghapus buku
+            removeBook(books, tittle, bookCount);
+        } else {
+            System.out.println("Pilihan tidak valid.");
+        }
         // Specific admin actions - akan diimplementasi oleh Anggota 4
     }
     

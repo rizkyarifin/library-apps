@@ -17,33 +17,37 @@ public class Admin extends User {
     }
     
     // Method signatures untuk Anggota 2 (Array Operations)
-    public void addBook(Object[] books, String newBook, int[] bookCount) {
+    public void addBook(Book[] books, Book newBook, int[] bookCount) {
         if (bookCount[0] < books.length) {
             books[bookCount[0]] = newBook;
             bookCount[0]++;
-            System.out.println("Admin " + name + " menambahkan buku");
+            System.out.println("Admin " + name + " berhasil menambahkan buku: " + newBook.getTitle());
         } else {
-            System.out.println("Array buku penuh");
+            System.out.println("Perpustakaan penuh! Tidak dapat menambahkan buku baru.");
         }
-
     }
     
-    public void removeBook(Object[] books, String title, int[] bookCount) {
-        for (int i = 0; i < books.length; i++) {
+    public void removeBook(Book[] books, String title, int[] bookCount) {
+        boolean found = false;
+        for (int i = 0; i < bookCount[0]; i++) {
             if (books[i] != null && books[i].getTitle().equalsIgnoreCase(title)) {
-                //geser array
+                // Geser array ke kiri
                 for (int j = i; j < bookCount[0] - 1; j++) {
                     books[j] = books[j + 1];
                 }
                 books[bookCount[0] - 1] = null;
                 bookCount[0]--;
+                found = true;
+                System.out.println("Admin " + name + " berhasil menghapus buku: " + title);
+                break;
             }
-            System.out.println("Admin " + name + " menghapus buku: " + title);
         }
-        // Implementation akan dilengkapi oleh Anggota 2
+        if (!found) {
+            System.out.println("Buku dengan judul '" + title + "' tidak ditemukan.");
+        }
     }
 
-        public Book[] searchBook(Object[] books, String title, int bookCount) {
+    public Book[] searchBook(Book[] books, String title, int bookCount) {
         Book[] result = new Book[bookCount];
         int resultCount = 0;
 
@@ -56,6 +60,11 @@ public class Admin extends User {
         System.out.println("Admin " + name + " mencari buku dengan kata kunci: \"" + title + "\"");
         if (resultCount == 0) {
             System.out.println("Tidak ada buku yang ditemukan.");
+        } else {
+            System.out.println("Ditemukan " + resultCount + " buku:");
+            for (int i = 0; i < resultCount; i++) {
+                System.out.println((i + 1) + ". " + result[i].getTitle() + " by " + result[i].getAuthor() + " - " + result[i].getStatus());
+            }
         }
 
         // Return hasil pencarian yang sesuai
@@ -65,7 +74,7 @@ public class Admin extends User {
     }
     
     // Method signatures untuk Anggota 3 (Book Management)
-    public void displayAllBooks(Object[] books, int bookCount) {
+    public void displayAllBooks(Book[] books, int bookCount) {
         System.out.println("Admin " + name + " melihat semua buku");
         // Implementation akan dilengkapi oleh Anggota 3
     }
@@ -88,7 +97,7 @@ public class Admin extends User {
     
     // Override performAction untuk Anggota 4 (Polymorphism)
     @Override
-    public void performAction(Object[] books, int[] bookCount) {
+    public void performAction(Book[] books, int[] bookCount) {
         System.out.println("Admin performing administrative actions...");
         // Specific admin actions - akan diimplementasi oleh Anggota 4
     }

@@ -37,23 +37,40 @@ public class Main {
         
         // Demonstrasi method specific untuk Admin
         System.out.println("\n--- Admin Operations ---");
-        Object[] books = new Book[10]; // Placeholder untuk array buku
+        Book[] books = new Book[10]; // Array untuk menyimpan buku
         int[] bookCount = {0}; // Counter untuk jumlah buku
         
-        admin1.addBook(books, "New Book", bookCount);
-        admin1.removeBook(books, "Old Book", bookCount);
-        admin1.searchBook(books, "Java Programming", 5);
+        // Menambahkan beberapa buku
+        admin1.addBook(books, new Book("Java Programming", "Herbert Schildt", "Tersedia"), bookCount);
+        admin1.addBook(books, new Book("Python Basics", "Eric Matthes", "Tersedia"), bookCount);
+        admin1.addBook(books, new Book("Web Development", "Jon Duckett", "Tersedia"), bookCount);
+        admin1.addBook(books, new Book("Database Design", "Adrienne Watt", "Tersedia"), bookCount);
+        
+        // Menampilkan semua buku
+        admin1.displayAllBooks(books, bookCount[0]);
+        
+        // Mencari buku
+        admin1.searchBook(books, "Java", bookCount[0]);
+        
+        // Menghapus buku
+        admin1.removeBook(books, "Web Development", bookCount);
         admin1.manageLibrary();
         
         // Demonstrasi method specific untuk Member
         System.out.println("\n--- Member Operations ---");
-        member1.borrowBook(books, "Java Programming", 5);
-        member1.borrowBook(books, "Python Basics", 5);
-        member1.borrowBook(books, "Web Development", 5);
-        member1.borrowBook(books, "Database Design", 5); // Akan ditolak karena limit
+        member1.borrowBook(books, "Java Programming", bookCount[0]);
+        member1.borrowBook(books, "Python Basics", bookCount[0]);
+        member1.borrowBook(books, "Database Design", bookCount[0]);
+        member1.borrowBook(books, "Web Development", bookCount[0]); // Akan ditolak karena limit
         
-        member1.returnBook(books, "Java Programming", 5);
-        member1.viewAvailableBooks(books, 5);
+        // Melihat buku yang tersedia
+        member1.viewAvailableBooks(books, bookCount[0]);
+        
+        // Mengembalikan buku
+        member1.returnBook(books, "Java Programming", bookCount[0]);
+        
+        // Member mencari buku
+        member2.searchBook(books, "Python", bookCount[0]);
         
         // Demonstrasi polymorphic behavior dengan performAction
         System.out.println("\n--- Polymorphic Actions ---");

@@ -28,7 +28,7 @@ public class Member extends User {
     }
     
     // Method signatures untuk Anggota 3 (Book Management)
-    public boolean borrowBook(Object[] books, String bookTitle, int bookCount) {
+    public boolean borrowBook(Book[] books, String bookTitle, int bookCount) {
         if (borrowedBooks < MAX_BORROW) {
             borrowedBooks++;
             System.out.println("Member " + name + " meminjam buku: " + bookTitle);
@@ -41,7 +41,7 @@ public class Member extends User {
         }
     }
     
-    public boolean returnBook(Object[] books, String bookTitle, int bookCount) {
+    public boolean returnBook(Book[] books, String bookTitle, int bookCount) {
         if (borrowedBooks > 0) {
             borrowedBooks--;
             System.out.println("Member " + name + " mengembalikan buku: " + bookTitle);
@@ -55,16 +55,36 @@ public class Member extends User {
     }
     
     // Method untuk melihat buku tersedia (untuk Anggota 3)
-    public void viewAvailableBooks(Object[] books, int bookCount) {
+    public void viewAvailableBooks(Book[] books, int bookCount) {
         System.out.println("Member " + name + " melihat daftar buku tersedia");
         // Implementation akan dilengkapi oleh Anggota 3
     }
     
     // Method untuk mencari buku (dari Anggota 2)
-    public Object[] searchBook(Object[] books, String title, int bookCount) {
-        System.out.println("Member " + name + " mencari buku: " + title);
-        // Implementation akan dilengkapi oleh Anggota 2
-        return null;
+    public Book[] searchBook(Book[] books, String title, int bookCount) {
+        Book[] result = new Book[bookCount];
+        int resultCount = 0;
+        
+        for (int i = 0; i < bookCount; i++) {
+            if (books[i] != null && books[i].getTitle().toLowerCase().contains(title.toLowerCase())) {
+                result[resultCount++] = books[i];
+            }
+        }
+        
+        System.out.println("Member " + name + " mencari buku dengan kata kunci: \"" + title + "\"");
+        if (resultCount == 0) {
+            System.out.println("Tidak ada buku yang ditemukan.");
+        } else {
+            System.out.println("Ditemukan " + resultCount + " buku:");
+            for (int i = 0; i < resultCount; i++) {
+                System.out.println((i + 1) + ". " + result[i].getTitle() + " by " + result[i].getAuthor() + " - " + result[i].getStatus());
+            }
+        }
+        
+        // Return hasil pencarian yang sesuai
+        Book[] trimmedResult = new Book[resultCount];
+        System.arraycopy(result, 0, trimmedResult, 0, resultCount);
+        return trimmedResult;
     }
     
     // Override method interact() - Polymorphism (untuk Anggota 4)
@@ -81,7 +101,7 @@ public class Member extends User {
     
     // Override performAction untuk Anggota 4 (Polymorphism)
     @Override
-    public void performAction(Object[] books, int[] bookCount) {
+    public void performAction(Book[] books, int[] bookCount) {
         System.out.println("Member performing member actions...");
         // Specific member actions - akan diimplementasi oleh Anggota 4
     }

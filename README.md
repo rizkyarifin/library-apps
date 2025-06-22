@@ -1,4 +1,4 @@
-# TUGAS KELOMPOK 1 GROUP 3 Sistem Manajemen Perpustakaan - Implementasi Inheritance dan Polymorphism
+# Sistem Manajemen Perpustakaan - Implementasi Inheritance dan Polymorphism (Tugas Kelompok 1 Group 3)
 
 ## Overview
 Proyek ini adalah sistem manajemen perpustakaan yang kami kembangkan untuk memahami dan menerapkan konsep Inheritance dan Polymorphism dalam pemrograman berorientasi objek. Sistem ini dirancang untuk menangani operasi-operasi dasar perpustakaan seperti pengelolaan buku oleh admin dan aktivitas peminjaman oleh anggota.

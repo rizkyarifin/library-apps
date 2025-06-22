@@ -5,85 +5,49 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== SISTEM PERPUSTAKAAN ===\n");
-        
-        // Membuat objek Admin
-        Admin admin1 = new Admin("A001", "John Doe", "john@library.com", "Senior");
-        Admin admin2 = new Admin("A002", "Jane Smith", "jane@library.com", "Junior");
-        
-        // Membuat objek Member
-        Member member1 = new Member("U001", "Alice Johnson", "alice@email.com", "MEM001");
-        Member member2 = new Member("U002", "Bob Wilson", "bob@email.com", "MEM002");
-        
-        // Demonstrasi Inheritance dan method overriding
-        System.out.println("--- Informasi Admin ---");
-        admin1.displayInfo();
-        System.out.println();
-        
-        System.out.println("--- Informasi Member ---");
-        member1.displayInfo();
-        System.out.println();
-        
-        // Demonstrasi Polymorphism
-        System.out.println("--- Demonstrasi Polymorphism ---");
-        User[] users = {admin1, member1, admin2, member2};
-        
-        for (User user : users) {
-            System.out.println("\nUser: " + user.getName());
-            user.interact();
-            System.out.println("Can add book: " + user.canAddBook());
-            System.out.println("Can remove book: " + user.canRemoveBook());
-            System.out.println("Can borrow book: " + user.canBorrowBook());
-        }
-        
-        // Demonstrasi method specific untuk Admin
-        System.out.println("\n--- Admin Operations ---");
-        Book[] books = new Book[10]; // Array untuk menyimpan buku
-        int[] bookCount = {0}; // Counter untuk jumlah buku
-        
-        // Menambahkan beberapa buku
-        admin1.addBook(books, new Book("Java Programming", "Herbert Schildt", "Tersedia"), bookCount);
-        admin1.addBook(books, new Book("Python Basics", "Eric Matthes", "Tersedia"), bookCount);
-        admin1.addBook(books, new Book("Web Development", "Jon Duckett", "Tersedia"), bookCount);
-        admin1.addBook(books, new Book("Database Design", "Adrienne Watt", "Tersedia"), bookCount);
-        
-        // Menampilkan semua buku
-        admin1.displayAllBooks(books, bookCount[0]);
-        
-        // Mencari buku
-        admin1.searchBook(books, "Java", bookCount[0]);
-        
-        // Menghapus buku
-        admin1.removeBook(books, "Web Development", bookCount);
-        admin1.manageLibrary();
-        
-        // Demonstrasi method specific untuk Member
-        System.out.println("\n--- Member Operations ---");
-        member1.borrowBook(books, "Java Programming", bookCount[0]);
-        member1.borrowBook(books, "Python Basics", bookCount[0]);
-        member1.borrowBook(books, "Database Design", bookCount[0]);
-        member1.borrowBook(books, "Web Development", bookCount[0]); // Akan ditolak karena limit
-        
-        // Melihat buku yang tersedia
-        member1.viewAvailableBooks(books, bookCount[0]);
-        
-        // Mengembalikan buku
-        member1.returnBook(books, "Java Programming", bookCount[0]);
-        
-        // Additional operations dari master - tetap dipertahankan
-        member1.returnBook(books, "Java Programming", 5);
-        member1.viewAvailableBooks(books, 5);
-
+        // 1. Setup sistem: Buat BookManager dan Scanner
+        BookManager bookManager = new BookManager(10); // Kapasitas 10 buku
         Scanner scanner = new Scanner(System.in);
-        
-        // Member mencari buku - dari feature/anggota-2
-        member2.searchBook(books, "Python", bookCount[0]);
-        
-        // Demonstrasi polymorphic behavior dengan performAction
-        System.out.println("\n--- Polymorphic Actions ---");
-        for (User user : users) {
-            System.out.println("\n--- Interaksi dengan "  + user.getName() + " ---");
-            user.performAction(books, bookCount, scanner);
+
+        // 2. Buat beberapa pengguna
+        User admin = new Admin("A001", "John Doe", "john@library.com", "Senior");
+        User member = new Member("U001", "Alice Johnson", "alice@email.com", "MEM001");
+
+        // 3. Admin menambahkan beberapa buku awal
+        System.out.println("--- Admin Setup Awal ---");
+        bookManager.addBook(new Book("Java Programming", "Herbert Schildt", "Tersedia"));
+        bookManager.addBook(new Book("Python Basics", "Eric Matthes", "Tersedia"));
+        bookManager.addBook(new Book("Web Development", "Jon Duckett", "Tersedia"));
+        System.out.println("------------------------");
+
+        // 4. Demonstrasi Polymorphism secara Interaktif
+        while (true) {
+            System.out.println("\n=== SELAMAT DATANG DI PERPUSTAKAAN ===");
+            System.out.println("Pilih pengguna untuk berinteraksi:");
+            System.out.println("1. Admin: " + admin.getName());
+            System.out.println("2. Member: " + member.getName());
+            System.out.println("3. Keluar");
+            System.out.print("Pilihan Anda: ");
+            int userChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            User currentUser;
+            if (userChoice == 1) {
+                currentUser = admin;
+            } else if (userChoice == 2) {
+                currentUser = member;
+            } else if (userChoice == 3) {
+                System.out.println("Terima kasih.");
+                break;
+            } else {
+                System.out.println("Pilihan tidak valid.");
+                continue;
+            }
+
+            // ini polymorphism: memanggil metode 'performAction'
+            currentUser.performAction(bookManager, scanner);
         }
+        
+        scanner.close();
     }
 }

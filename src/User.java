@@ -32,7 +32,7 @@ public abstract class User {
     public abstract void interact();
     
     // Abstract method untuk operasi berbeda Admin vs Member (Soal 4)
-    public abstract void performAction(Object[] books, int[] bookCount);
+    public abstract void performAction(Object[] books, int[] bookCount, Scanner scanner);
     
     // Abstract methods untuk permission checking (Soal 4)
     public abstract boolean canAddBook();

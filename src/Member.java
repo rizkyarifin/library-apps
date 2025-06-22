@@ -43,7 +43,7 @@ public class Member extends User {
 
     public void processReturn(Book book) {
         borrowedBooks--;
-        book.setStatus("tersedia");
+        book.setStatus("Tersedia");
         System.out.println("-> Berhasil mengembalikan '" + book.getTitle() + "'. Total buku dipinjam: " + borrowedBooks);
     }
     
@@ -55,30 +55,27 @@ public class Member extends User {
     }
 
     // Override performAction untuk Anggota 4 (Polymorphism)
-    @Override
-    public void performAction(Book[] books, int[] bookCount, Scanner scanner) {
-        System.out.println("=== Menu aksi Member: " + name + " ===");
-        System.out.println("1. Pinjam Buku");
-        System.out.println("2. Kembalikan Buku");
-        System.out.print("Pilih aksi (1-2): ");
-
+    @override
+    public void performAction(BookManager bookManager, Scanner scanner) {
+        interact();
+        System.out.println("PILIH AKSI:\n1. Pinjam Buku\n2. Kembalikan Buku\n3. Lihat Buku Tersedia");
+        System.out.print("Pilihan Anda: ");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         if (choice == 1) {
             System.out.print("Masukkan judul buku yang akan dipinjam: ");
             String title = scanner.nextLine();
-            // Memanggil metode untuk meminjam buku
-            borrowBook(books, title, bookCount[0]); // Fix typo
+            bookManager.borrowBook(title this);
         } else if (choice == 2) {
             System.out.print("Masukkan judul buku yang akan dikembalikan: ");
-            String title = scanner.nextLine(); // Fix syntax error
-            // Memanggil metode untuk mengembalikan buku
-            returnBook(books, title, bookCount[0]);
+            String title = scanner.nextLine();
+            bookManager.returnBook(title, this);
+        } else if (choice == 3) {
+            bookManager.displayAvailableBooks();
         } else {
             System.out.println("Pilihan tidak valid.");
         }
-       
     }
 
     // Override displayInfo untuk menampilkan info spesifik Member

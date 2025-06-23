@@ -64,9 +64,13 @@ public class Member extends User {
         scanner.nextLine();
 
         if (choice == 1) {
-            System.out.print("Masukkan judul buku yang akan dipinjam: ");
-            String title = scanner.nextLine();
-            bookManager.borrowBook(title, this);
+            if (canBorrowBook()) {
+                System.out.print("Masukkan judul buku yang akan dipinjam: ");
+                String title = scanner.nextLine();
+                bookManager.borrowBook(title, this);
+            } else {
+                System.out.println("Anda sudah mencapai batas maksimal peminjaman (" + MAX_BORROW + " buku).");
+            }
         } else if (choice == 2) {
             System.out.print("Masukkan judul buku yang akan dikembalikan: ");
             String title = scanner.nextLine();
@@ -85,5 +89,21 @@ public class Member extends User {
         System.out.println("Role: Member");
         System.out.println("Member ID: " + memberId);
         System.out.println("Books Borrowed: " + borrowedBooks + "/" + MAX_BORROW);
+    }
+    
+    // Implementasi permission system untuk Member (Anggota 4)
+    @Override
+    public boolean canAddBook() {
+        return false; // Member tidak bisa menambah buku
+    }
+    
+    @Override
+    public boolean canRemoveBook() {
+        return false; // Member tidak bisa menghapus buku
+    }
+    
+    @Override
+    public boolean canBorrowBook() {
+        return borrowedBooks < MAX_BORROW; // Member bisa meminjam jika belum mencapai limit
     }
 }

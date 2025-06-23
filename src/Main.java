@@ -19,6 +19,19 @@ public class Main {
         bookManager.addBook(new Book("Python Basics", "Eric Matthes", "Tersedia"));
         bookManager.addBook(new Book("Web Development", "Jon Duckett", "Tersedia"));
         System.out.println("------------------------");
+        
+        // 3.5 Demonstrasi Permission System
+        System.out.println("\n--- Demonstrasi Permission System ---");
+        System.out.println("Admin " + admin.getName() + ":");
+        System.out.println("  - Can Add Book: " + admin.canAddBook());
+        System.out.println("  - Can Remove Book: " + admin.canRemoveBook());
+        System.out.println("  - Can Borrow Book: " + admin.canBorrowBook());
+        
+        System.out.println("\nMember " + member.getName() + ":");
+        System.out.println("  - Can Add Book: " + member.canAddBook());
+        System.out.println("  - Can Remove Book: " + member.canRemoveBook());
+        System.out.println("  - Can Borrow Book: " + member.canBorrowBook());
+        System.out.println("------------------------------------");
 
         // 4. Demonstrasi Polymorphism secara Interaktif
         while (true) {
